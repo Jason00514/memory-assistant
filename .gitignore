@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+*.db
+*.db-shm
+*.db-wal
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+test_import.xlsx
+create_test_excel.py

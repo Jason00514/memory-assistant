@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "7e3c9cd74e9e2b4828527a857170e86310f2dab5ea8030a9043df2c7e6c88857"
+    },
+    "xlsx-manipulation": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "skillPath": "xlsx-manipulation/SKILL.md",
+      "computedHash": "3ee916c719e3afafd8a4a820682be6b5dc1457d67854ceb37ce1bfe4bdc96fba"
+    }
+  }
+}

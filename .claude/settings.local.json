@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Recurse \"F:\\\\T03_AI_ClaudeCode\\\\PJ01_memoryAsistant\" | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Recurse \"F:\\\\T03_AI_ClaudeCode\\\\PJ01_memoryAsistant\\\\app\" | Where-Object { -not $_.PSIsContainer } | Select-Object -ExpandProperty FullName)",
+      "Bash(pip --version)",
+      "Bash(pip install *)",
+      "Bash(pip list *)",
+      "Bash(python -c \"from app.main import app; print\\('Import OK'\\)\")",
+      "Bash(python -m uvicorn app.main:app --host 0.0.0.0 --port 8000)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(python *)",
+      "Bash(Remove-Item -Force \"F:\\\\T03_AI_ClaudeCode\\\\PJ01_memoryAsistant\\\\memory_assistant.db\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"DB removed\")",
+      "Bash(curl -s http://localhost:8000/curves/)",
+      "Bash(curl -s -X POST \"http://localhost:8000/import/excel\" -F \"file=@test_import.xlsx\")",
+      "Bash(pkill -f \"uvicorn\")",
+      "Bash(taskkill /F /IM python.exe)",
+      "Bash(curl -s http://localhost:8001/)",
+      "Bash(curl -s -X POST \"http://localhost:8001/import/excel\" -F \"file=@test_import.xlsx\")",
+      "Bash(curl *)",
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(git config *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
