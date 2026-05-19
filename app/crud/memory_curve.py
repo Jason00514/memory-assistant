@@ -1,9 +1,13 @@
+"""
+MemoryCurve の CRUD 操作。
+デフォルト4カーブのシードも担当。
+"""
 from sqlalchemy.orm import Session
 from app.models.memory_curve import MemoryCurve
 from app.schemas.memory_curve import MemoryCurveCreate, MemoryCurveUpdate
 from app.utils.id_generator import generate_mc_id
 
-
+# システム起動時にシードするデフォルト記憶カーブ
 DEFAULT_CURVES = [
     {
         "curve_name": "标准单词曲线",
@@ -33,17 +37,19 @@ DEFAULT_CURVES = [
 
 
 def seed_default_curves(db: Session) -> None:
+    """DBが空の場合のみデフォルトカーブを挿入する"""
     if db.query(MemoryCurve).first():
         return
     for data in DEFAULT_CURVES:
         curve_id = generate_mc_id(db)
         curve = MemoryCurve(curve_id=curve_id, **data)
         db.add(curve)
-        db.flush()  # make the new row visible to generate_mc_id on next iteration
+        db.flush()  # 次の generate_mc_id が新しい ID を生成できるよう flush する
     db.commit()
 
 
 def get_default_curve(db: Session) -> MemoryCurve | None:
+    """最初に見つかった有効なカーブを返す（デフォルト選択用）"""
     return db.query(MemoryCurve).filter(MemoryCurve.data_flag == 0).first()
 
 
@@ -79,6 +85,7 @@ def update_curve(db: Session, curve_id: str, data: MemoryCurveUpdate) -> MemoryC
 
 
 def delete_curve(db: Session, curve_id: str) -> bool:
+    """論理削除（data_flag = 1）"""
     curve = get_curve(db, curve_id)
     if not curve:
         return False

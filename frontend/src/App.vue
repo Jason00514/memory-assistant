@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Nav -->
+    <!-- ナビゲーションバー -->
     <nav class="bg-indigo-700 text-white shadow-md">
       <div class="max-w-5xl mx-auto px-4 flex items-center h-14 gap-1">
-        <span class="font-bold text-lg mr-6 tracking-wide">记忆助手</span>
+        <span class="font-bold text-lg mr-5 tracking-wide">🧠 记忆助手</span>
         <RouterLink
           v-for="link in links" :key="link.to"
           :to="link.to"
@@ -13,7 +13,7 @@
       </div>
     </nav>
 
-    <!-- Page -->
+    <!-- ページコンテンツ -->
     <main class="flex-1 max-w-5xl mx-auto w-full px-4 py-6">
       <RouterView />
     </main>
@@ -22,9 +22,10 @@
 
 <script setup lang="ts">
 const links = [
-  { to: '/review', label: '📖 复习' },
-  { to: '/import', label: '📥 导入' },
-  { to: '/cards',  label: '🗂️ 卡片库' },
-  { to: '/curves', label: '📈 记忆曲线' },
+  { to: '/dashboard', label: '📊 一览' },
+  { to: '/review',    label: '📖 复习' },
+  { to: '/import',    label: '📥 导入' },
+  { to: '/cards',     label: '🗂️ 卡片库' },
+  { to: '/curves',    label: '📈 记忆曲线' },
 ]
 </script>

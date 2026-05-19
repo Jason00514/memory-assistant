@@ -1,3 +1,6 @@
+"""
+ProcessedContent 関連の Pydantic スキーマ（APIリクエスト/レスポンス形式）
+"""
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional, Any
@@ -11,6 +14,7 @@ class ProcessedContentOut(BaseModel):
     answer: str
     extra: Optional[Any] = None
     category: str
+    tags: Optional[list[str]] = None          # 追加タグ一覧
     usage_type: Optional[str] = None
     curve_id: Optional[str] = None
     current_level: int
@@ -24,15 +28,17 @@ class ProcessedContentOut(BaseModel):
 
 
 class ReviewItem(BaseModel):
+    """復習画面で1枚分のカードデータ"""
     PC_ID: str
     content_type: str
     question: str
     answer: str
     extra: Optional[Any] = None
     category: str
+    tags: Optional[list[str]] = None
     current_level: int
     next_review_time: Optional[datetime] = None
-    hours_until_review: Optional[float] = None
+    hours_until_review: Optional[float] = None   # 正=まだ時間あり、負=過期
     is_overdue: bool = False
     is_severely_overdue: bool = False
 
@@ -40,24 +46,37 @@ class ReviewItem(BaseModel):
 
 
 class ReviewAnswer(BaseModel):
+    """答え合わせ送信データ"""
     PC_ID: str
     is_correct: bool
 
 
 class ReviewResult(BaseModel):
+    """答え合わせ後に返す結果"""
     PC_ID: str
     old_level: int
     new_level: int
     next_review_time: datetime
-    review_type: str  # normal/early/severely_overdue
+    review_type: str     # normal / early / severely_overdue
 
 
 class ProcessRequest(BaseModel):
-    rc_ids: Optional[list[str]] = None  # None = process all unprocessed
-    curve_id: Optional[str] = None      # None = use default curve
+    """RawContent → ProcessedContent 変換リクエスト"""
+    rc_ids: Optional[list[str]] = None    # 指定なし = 全未処理
+    curve_id: Optional[str] = None        # 指定なし = デフォルトカーブ
 
 
 class ProcessResult(BaseModel):
     total_processed: int
     failed: int
     items: list[ProcessedContentOut]
+
+
+class UpdateTagsRequest(BaseModel):
+    """カードのタグを更新するリクエスト"""
+    tags: list[str]
+
+
+class UpdateCurveRequest(BaseModel):
+    """カードの記憶カーブを変更するリクエスト"""
+    curve_id: str
